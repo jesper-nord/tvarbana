@@ -28,7 +28,7 @@ export const App = () => {
   return (
     <div className="app">
       <Departures departures={departures} />
-      <em class="update">Senast uppdaterad för {formatReadable(timeFrom(latestUpdate))} sedan</em>
+      <em className="update">Senast uppdaterad för {formatReadable(timeFrom(latestUpdate))} sedan</em>
     </div>
   )
 }

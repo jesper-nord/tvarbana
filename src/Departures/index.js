@@ -30,7 +30,7 @@ export const Departures = ({ departures }) => {
   }
 
   return (
-    <div class="departures">
+    <div className="departures">
       {content}
     </div>
   )
