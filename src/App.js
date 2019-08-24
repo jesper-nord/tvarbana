@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './app.css'
 import { Departures } from './Departures'
 import { getRealtimeData } from './service'
-import { formatReadable, timeFrom } from './util';
+import { formatReadable, timeFrom } from './util'
 
 const SOLNA_BUSINESS_PARK = 5119
 const DIRECTION_SICKA = 2
