@@ -24,7 +24,7 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
   const id = response.config.__id
   clearInterval(requestIds.get(id))
-  requestIds.remove(id)
+  requestIds.delete(id)
   progress.done()
   progress.remove()
   return response;
