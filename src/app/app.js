@@ -14,8 +14,7 @@ const App = () => {
     const fetchData = async () => {
       try {
         const response = await getRealtimeDataFor(SOLNA_BUSINESS_PARK)
-        console.log('response', response)
-        const responseData = response.data.ResponseData
+        const responseData = response.data.data.ResponseData // wrapped API response data
         setDepartures(responseData)
         setLatestUpdate(new Date(responseData.LatestUpdate))
       } catch (e) {
