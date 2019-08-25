@@ -1,4 +1,4 @@
-import axios from 'axios'
+const axios = require('axios')
 
 const BASE_URL = 'https://api.sl.se/api2'
 const REAL_TIME_API = 'realtimedeparturesV4.json'
