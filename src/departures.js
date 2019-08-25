@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatReadable, timeUntil } from '../util'
+import { formatReadable, timeUntil } from './util'
 
 const FOUR_MINUTES = 240000
 
