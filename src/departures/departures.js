@@ -12,13 +12,15 @@ const Departures = ({ departures = {} }) => {
 
   trams = trams.filter(tram => tram.JourneyDirection === DIRECTION_SICKLA)
 
-  const nextDepartureTime = timeUntil(trams[0].ExpectedDateTime)
+  const nextDeparture = trams[0]
+  const nextDepartureTime = timeUntil(nextDeparture.ExpectedDateTime)
+  const nextTrainText = <span>Nästa tåg mot <strong>Sickla</strong> går om </span>
 
   let content
   if (nextDepartureTime < FOUR_MINUTES) {
     content = (
       <div>
-        <p>Nästa tåg mot Sickla går om {formatReadable(nextDepartureTime)}</p>
+        <p>{nextTrainText}<strong>{formatReadable(nextDepartureTime)}</strong></p>
         <p>Tåget därefter går om</p>
         <h1>{formatReadable(timeUntil(trams[1].ExpectedDateTime))}</h1>
       </div>
@@ -26,7 +28,7 @@ const Departures = ({ departures = {} }) => {
   } else {
     content = (
       <div>
-        <p>Nästa tåg mot Sickla går om</p>
+        <p>{nextTrainText}</p>
         <h1>{formatReadable(nextDepartureTime)}</h1>
       </div>
     )
@@ -34,6 +36,9 @@ const Departures = ({ departures = {} }) => {
 
   return (
     <div className="departures">
+      {nextDeparture.Deviations && (
+        <strong>Avvikelse: {nextDeparture.Deviations}</strong>
+      )}
       {content}
     </div>
   )
