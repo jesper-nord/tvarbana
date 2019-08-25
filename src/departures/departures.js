@@ -1,20 +1,18 @@
 import React from 'react'
 import { formatReadable, timeUntil } from '../util'
+import { FOUR_MINUTES } from '../constants'
 
-const FOUR_MINUTES = 240000
-const DIRECTION_SICKLA = 2
-
-const Departures = ({ departures = {} }) => {
+const Departures = ({ departureStation, departures = {} }) => {
   let trams = departures.Trams
   if (!departures || !trams || trams.length === 0) {
     return <p>Inga avgångar</p>
   }
 
-  trams = trams.filter(tram => tram.JourneyDirection === DIRECTION_SICKLA)
+  trams = trams.filter(tram => tram.JourneyDirection === departureStation.direction)
 
   const nextDeparture = trams[0]
   const nextDepartureTime = timeUntil(nextDeparture.ExpectedDateTime)
-  const nextTrainText = <span>Nästa tåg mot <strong>Sickla</strong> går om </span>
+  const nextTrainText = <span>Nästa tåg mot <strong>{departureStation.destination}</strong> går om </span>
 
   let content
   if (nextDepartureTime < FOUR_MINUTES) {

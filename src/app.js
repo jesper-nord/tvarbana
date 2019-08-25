@@ -3,17 +3,18 @@ import './app.css'
 import Departures from './departures/departures'
 import { formatReadable, timeFrom } from './util'
 import { getRealtimeDataFor } from './service'
-
-const SOLNA_BUSINESS_PARK = 5119
+import { STATION_GLOBEN, STATION_SOLNA_BUSINESS_PARK } from './constants'
 
 const App = () => {
   const [latestUpdate, setLatestUpdate] = useState(new Date())
   const [departures, setDepartures] = useState([])
 
+  const departureStation = new Date().getHours() < 12 ? STATION_GLOBEN : STATION_SOLNA_BUSINESS_PARK
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getRealtimeDataFor(SOLNA_BUSINESS_PARK)
+        const response = await getRealtimeDataFor(departureStation.key)
         const responseData = response.data.data.ResponseData // wrapped API response data
         setDepartures(responseData)
         setLatestUpdate(new Date(responseData.LatestUpdate))
@@ -22,11 +23,11 @@ const App = () => {
       }
     }
     fetchData()
-  }, [])
+  }, [departureStation])
 
   return (
     <div className="app">
-      <Departures departures={departures} />
+      <Departures departures={departures} departureStation={departureStation} />
       <em className="update">Senast uppdaterad för {formatReadable(timeFrom(latestUpdate))} sedan</em>
     </div>
   )
