@@ -23,7 +23,7 @@ const App = () => {
       }
     }
     fetchData()
-  }, [departureStation])
+  }, [departureStation.key])
 
   return (
     <div className="app">
