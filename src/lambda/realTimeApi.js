@@ -9,7 +9,6 @@ exports.handler = async (event, context) => {
   const url = `${BASE_URL}/${REAL_TIME_API}?key=${REACT_APP_SL_API_KEY}&siteid=${siteId}&timewindow=30`
 
   return axios.get(url, { headers: { "Accept": "application/json" } })
-    .then(response => response.json())
     .then(data => ({
       statusCode: 200,
       body: data
