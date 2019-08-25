@@ -2,14 +2,16 @@ import React from 'react'
 import { formatReadable, timeUntil } from './util'
 
 const FOUR_MINUTES = 240000
+const DIRECTION_SICKLA = 2
 
 export const Departures = ({ departures }) => {
   if (!departures || departures.length === 0) {
-    return null
+    return <p>Inga avgångar</p>
   }
 
-  const nextDeparture = departures[0]
-  const nextDepartureTime = timeUntil(nextDeparture.ExpectedDateTime)
+  departures = departures.filter(departure => departure.JourneyDirection === DIRECTION_SICKLA)
+
+  const nextDepartureTime = timeUntil(departures[0].ExpectedDateTime)
 
   let content
   if (nextDepartureTime < FOUR_MINUTES) {
