@@ -4,16 +4,16 @@ import NProgress from 'multi-nprogress'
 import 'multi-nprogress/nprogress.css'
 
 const progress = NProgress()
-let requestIds = []
+let requestIds = new Map()
 
 axios.interceptors.request.use(config => {
   const id = uuid()
   config.__id = id
-  requestIds.push(id)
   progress.start()
-  setInterval(() => {
+  const interval = setInterval(() => {
     progress.inc()
   }, 200)
+  requestIds.set(id, interval)
   return config;
 }, function (error) {
   progress.done()
@@ -22,7 +22,9 @@ axios.interceptors.request.use(config => {
 });
 
 axios.interceptors.response.use(response => {
-  requestIds = requestIds.filter(id => id !== response.config.__id)
+  const id = response.config.__id
+  clearInterval(requestIds.get(id))
+  requestIds.remove(id)
   progress.done()
   progress.remove()
   return response;
