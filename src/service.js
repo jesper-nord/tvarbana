@@ -1,32 +1,34 @@
 import axios from 'axios'
 import uuid from 'uuid/v4'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+import NProgress from 'multi-nprogress'
+import 'multi-nprogress/nprogress.css'
 
-let requestIds = new Map()
+const progress = NProgress()
+let requestIds = []
 
 axios.interceptors.request.use(config => {
   const id = uuid()
   config.__id = id
-  requestIds.set(id, NProgress.done)
-  NProgress.start()
+  requestIds.push(id)
+  progress.start()
   setInterval(() => {
-    NProgress.inc()
+    progress.inc()
   }, 200)
   return config;
 }, function (error) {
-  NProgress.done()
+  progress.done()
+  progress.remove()
   return Promise.reject(error);
 });
 
 axios.interceptors.response.use(response => {
-  const id = response.config.__id
-  const stop = requestIds.get(id)
-  stop()
-  requestIds.delete(id)
+  requestIds = requestIds.filter(id => id !== response.config.__id)
+  progress.done()
+  progress.remove()
   return response;
 }, function (error) {
-  NProgress.done()
+  progress.done()
+  progress.remove()
   return Promise.reject(error);
 });
 
