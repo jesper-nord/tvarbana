@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import './app.css'
-import Departures from '../departures/departures'
-import { formatReadable, timeFrom } from '../util'
-import { getRealtimeDataFor } from '../service'
+import Departures from './departures/departures'
+import { formatReadable, timeFrom } from './util'
+import { getRealtimeDataFor } from './service'
 
 const SOLNA_BUSINESS_PARK = 5119
 
