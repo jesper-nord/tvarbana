@@ -4,7 +4,7 @@ import { formatReadable, timeUntil } from './util'
 const FOUR_MINUTES = 240000
 const DIRECTION_SICKLA = 2
 
-export const Departures = ({ departures }) => {
+const Departures = ({ departures }) => {
   if (!departures || departures.length === 0) {
     return <p>Inga avgångar</p>
   }
@@ -37,3 +37,5 @@ export const Departures = ({ departures }) => {
     </div>
   )
 }
+
+export default Departures

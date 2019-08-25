@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import './app.css'
-import { Departures } from './departures'
+import Departures from './departures'
 import { getRealtimeDataFor } from './service'
 import { formatReadable, timeFrom } from './util'
 
 const SOLNA_BUSINESS_PARK = 5119
 
-export const App = () => {
+const App = () => {
   const [latestUpdate, setLatestUpdate] = useState(new Date())
   const [departures, setDepartures] = useState([])
 
@@ -31,3 +31,5 @@ export const App = () => {
     </div>
   )
 }
+
+export default App
